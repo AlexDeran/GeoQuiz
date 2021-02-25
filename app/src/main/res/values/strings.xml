@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GeoQuiz</string>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#39A1FF</color>
+</resources>
