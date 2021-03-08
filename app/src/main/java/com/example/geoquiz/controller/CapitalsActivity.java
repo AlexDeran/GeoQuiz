@@ -1,12 +1,12 @@
 package com.example.geoquiz.controller;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,19 +14,31 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.geoquiz.R;
 import com.example.geoquiz.model.Question;
 import com.example.geoquiz.model.QuestionBank;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public class CapitalsActivity extends AppCompatActivity implements View.OnClickListener {
+
+    public static final long COUNTDOWN_IN_MILLIS = 11000;
 
     private TextView mCapitalQuestion;
     private Button mCapitalAnswer1;
     private Button mCapitalAnswer2;
     private Button mCapitalAnswer3;
     private Button mCapitalAnswer4;
+
+    private TextView mScoreDisplay;
+    private TextView mNbrofQuestion;
+    private TextView mCountDown;
 
     private QuestionBank mQuestionBank;
     private Question mCurrentQuestion;
@@ -39,11 +51,21 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
     public static final String BUNDLE_STATE_QUESTION = "currentQuestion";
 
     private boolean mEnableTouchEvents;
+    private int mQuestionTotal;
+    private int mQuestionCounter;
 
+    private ColorStateList CountDownColor;
+    private CountDownTimer mCountDownTimer;
+    private long timeLeftInMillis;
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capitals);
+
 
         mQuestionBank = this.generateQuestions();
         mScore = 0;
@@ -79,7 +101,18 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
         mCurrentQuestion = mQuestionBank.getQuestion();
         this.displayQuestion(mCurrentQuestion);
 
+        mQuestionTotal = 10;
+        mQuestionCounter = 1;
+        mScoreDisplay = findViewById(R.id.capitals_score);
+        mNbrofQuestion = findViewById(R.id.questions_count);
+        mCountDown = findViewById(R.id.question_timer);
+
+        CountDownColor = mCountDown.getTextColors();
+        timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+        startCountDown();
     }
+
+
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -90,33 +123,92 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
         super.onSaveInstanceState(outState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+
     @Override
     public void onClick(View v) {
         int responseIndex = (int) v.getTag();
+
+        mCountDownTimer.cancel();
 
         if(responseIndex == mCurrentQuestion.getAnswerIndex()){
                 // Bon
             Toast.makeText(this, "Correct !", Toast.LENGTH_SHORT).show();
             mScore++;
+
         } else {
             // Mauvais
             Toast.makeText(this, "Mauvaise réponse !", Toast.LENGTH_SHORT).show();
         }
+
         mEnableTouchEvents = false;
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mEnableTouchEvents = true;
+                mCountDownTimer.cancel();
+                timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+                startCountDown();
+                if (--mNumberOfQuestions == 0 && mQuestionCounter <= 10) {
+                    // End the game
+                    endGame();
+                } else {
+                    mCurrentQuestion = mQuestionBank.getQuestion();
+                    displayQuestion(mCurrentQuestion);
+                    mQuestionCounter++;
+                    mScoreDisplay.setText("Score : " + mScore);
+                    mNbrofQuestion.setText("Question : " +mQuestionCounter + "/10");
+                }
+            }
+        }, 2000);
+    }
+
+    private void startCountDown() {
+        mCountDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDown();
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeftInMillis = 0;
+                updateCountDown();
+                mCountDownTimer.cancel();
                 if (--mNumberOfQuestions == 0) {
                     // End the game
                     endGame();
                 } else {
                     mCurrentQuestion = mQuestionBank.getQuestion();
                     displayQuestion(mCurrentQuestion);
+                    mQuestionCounter++;
+                    mScoreDisplay.setText("Score : " + mScore);
+                    mNbrofQuestion.setText("Question : " +mQuestionCounter + "/10");
+                    timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+                    startCountDown();
                 }
             }
-        }, 2000);
+        }.start();
+    }
+
+
+
+    private void  updateCountDown(){
+
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        mCountDown.setText(timeFormatted);
+
+        if(timeLeftInMillis < 6000){
+            mCountDown.setTextColor(Color.RED);
+        }
+        else{
+            mCountDown.setTextColor(CountDownColor);
+        }
+
     }
 
     @Override
@@ -125,6 +217,7 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void endGame(){
+        mCountDownTimer.cancel();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Bien joué !")
         .setMessage("Votre score est de " + mScore + "/10")
@@ -252,5 +345,13 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
                 question20));
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mCountDownTimer != null){
+            mCountDownTimer.cancel();
+        }
+    }
 }
 
