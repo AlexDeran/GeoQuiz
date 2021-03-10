@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GeoQuiz">
-        <activity android:name=".controller.USSActivity"></activity>
+        <activity android:name=".controller.FlagsActivity"></activity>
         <activity android:name=".controller.FrActivity" />
         <activity
             android:name=".GetNameActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +28,7 @@
             android:name=".controller.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".controller.DivActivity"
+            android:name=".controller.AdmActivity"
             android:screenOrientation="portrait" />
     </application>
 

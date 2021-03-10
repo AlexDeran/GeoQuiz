@@ -41,7 +41,7 @@
         />
 
     <Button
-        android:id="@+id/sol_btn"
+        android:id="@+id/adm_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -52,7 +52,7 @@
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/dernier_score_sol_txt"
+        android:id="@+id/dernier_score_adm_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -62,7 +62,28 @@
         />
 
     <Button
-        android:id="@+id/dfr_btn"
+        android:id="@+id/flags_btn"
+        android:textColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:textSize="25sp"
+        android:padding="20dp"
+        android:text="Drapeaux"
+        />
+
+    <TextView
+        android:id="@+id/dernier_score_flags_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        />
+
+    <Button
+        android:id="@+id/fr_btn"
         android:textColor="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +95,7 @@
         />
 
     <TextView
-        android:id="@+id/dernier_score_dfr_txt"
+        android:id="@+id/dernier_score_fr_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -82,28 +103,5 @@
         android:textSize="20dp"
         android:layout_marginBottom="5sp"
         />
-
-    <Button
-        android:id="@+id/usa_states_btn"
-        android:textColor="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:textSize="25sp"
-        android:padding="20dp"
-        android:text="États-Unis"
-        />
-
-    <TextView
-        android:id="@+id/dernier_score_usa_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        />
-
-
 
 </LinearLayout>

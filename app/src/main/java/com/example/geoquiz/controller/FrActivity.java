@@ -1,153 +1,291 @@
 package com.example.geoquiz.controller;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.geoquiz.R;
 import com.example.geoquiz.model.Question;
 import com.example.geoquiz.model.QuestionBank;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public class FrActivity extends AppCompatActivity implements View.OnClickListener {
 
-        private TextView mDFRQuestion;
-        private Button mDFRAnswer1;
-        private Button mDFRAnswer2;
-        private Button mDFRAnswer3;
-        private Button mDFRAnswer4;
+    public static final long COUNTDOWN_IN_MILLIS = 11000;
 
-        private QuestionBank mQuestionBank;
-        private Question mCurrentQuestion;
+    private TextView mFrQuestion;
+    private Button mFrAnswer1;
+    private Button mFrAnswer2;
+    private Button mFrAnswer3;
+    private Button mFrAnswer4;
 
-        private int mScore;
-        private int mNumberOfQuestions;
+    private TextView mScoreDisplay;
+    private TextView mNbrofQuestion;
+    private TextView mCountDown;
+    private ProgressBar mProgressBar;
 
-        public static final String BUNDLE_EXTRA_SCORE = "BUNDLE_EXTRA_SCORE";
-        public static final String BUNDLE_STATE_SCORE = "currentScore";
-        public static final String BUNDLE_STATE_QUESTION = "currentQuestion";
+    private QuestionBank mQuestionBank;
+    private Question mCurrentQuestion;
 
-        private boolean mEnableTouchEvents;
+    private int mScore;
+    private int mNumberOfQuestions;
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_fr);
+    public static final String BUNDLE_EXTRA_SCORE = "BUNDLE_EXTRA_SCORE";
+    public static final String BUNDLE_STATE_SCORE = "currentScore";
+    public static final String BUNDLE_STATE_QUESTION = "currentQuestion";
 
-            mQuestionBank = this.generateQuestions();
+    private boolean mEnableTouchEvents;
+    private int mQuestionTotal;
+    private int mQuestionCounter;
+
+    private ColorStateList CountDownColor;
+    private CountDownTimer mCountDownTimer;
+    private long timeLeftInMillis;
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fr);
+
+
+        mQuestionBank = this.generateQuestions();
+        mScore = 0;
+        mNumberOfQuestions = 10;
+
+        if (savedInstanceState != null) {
+            mScore = savedInstanceState.getInt(BUNDLE_STATE_SCORE);
+            mNumberOfQuestions = savedInstanceState.getInt(BUNDLE_STATE_QUESTION);
+        } else {
             mScore = 0;
             mNumberOfQuestions = 10;
+        }
 
-            if (savedInstanceState != null) {
-                mScore = savedInstanceState.getInt(BUNDLE_STATE_SCORE);
-                mNumberOfQuestions = savedInstanceState.getInt(BUNDLE_STATE_QUESTION);
-            } else {
-                mScore = 0;
-                mNumberOfQuestions = 10;
+        mEnableTouchEvents = true;
+
+        mFrQuestion = findViewById(R.id.fr_question_txt);
+        mFrAnswer1 = findViewById(R.id.fr_answer1_btn);
+        mFrAnswer2 = findViewById(R.id.fr_answer2_btn);
+        mFrAnswer3 = findViewById(R.id.fr_answer3_btn);
+        mFrAnswer4 = findViewById(R.id.fr_answer4_btn);
+
+        mScoreDisplay = findViewById(R.id.fr_score);
+        mNbrofQuestion = findViewById(R.id.fr_questions_count);
+        mCountDown = findViewById(R.id.fr_question_timer);
+        mProgressBar =findViewById(R.id.fr_progress_bar);
+
+        // Use the tag property to 'name' the buttons
+        mFrAnswer1.setTag(0);
+        mFrAnswer2.setTag(1);
+        mFrAnswer3.setTag(2);
+        mFrAnswer4.setTag(3);
+
+        mFrAnswer1.setOnClickListener(this);
+        mFrAnswer2.setOnClickListener(this);
+        mFrAnswer3.setOnClickListener(this);
+        mFrAnswer4.setOnClickListener(this);
+
+        mCurrentQuestion = mQuestionBank.getQuestion();
+        this.displayQuestion(mCurrentQuestion);
+
+        mQuestionTotal = 10;
+        mQuestionCounter = 1;
+
+        CountDownColor = mCountDown.getTextColors();
+        timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+        startCountDown();
+    }
+
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+
+        outState.putInt(BUNDLE_STATE_SCORE, mScore);
+        outState.putInt(BUNDLE_STATE_QUESTION, mNumberOfQuestions);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+
+    @Override
+    public void onClick(View v) {
+        int responseIndex = (int) v.getTag();
+
+        int taganswer1 = (int) mFrAnswer1.getTag();
+        int taganswer2 = (int) mFrAnswer2.getTag();
+        int taganswer3 = (int) mFrAnswer3.getTag();
+        int taganswer4 = (int) mFrAnswer4.getTag();
+
+        mCountDownTimer.cancel();
+
+        if(responseIndex == mCurrentQuestion.getAnswerIndex()){
+            // Bon
+            Toast toast =  Toast.makeText(this, "Correct !", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM,0,350);
+            toast.show();
+
+            v.setBackgroundColor(Color.parseColor("#008000"));
+
+            mScore++;
+        } else {
+            // Mauvais
+            Toast toast = Toast.makeText(this, "Mauvaise réponse !",Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM,0,350);
+            toast.show();
+
+            v.setBackgroundColor(Color.parseColor("#830000"));
+
+            if(taganswer1 == mCurrentQuestion.getAnswerIndex()){
+                mFrAnswer1.setBackgroundColor(Color.parseColor("#008000"));
             }
 
-            mEnableTouchEvents = true;
+            else if(taganswer2 == mCurrentQuestion.getAnswerIndex()){
+                mFrAnswer2.setBackgroundColor(Color.parseColor("#008000"));;
+            }
 
-            mDFRQuestion = findViewById(R.id.dept_fr_question_txt);
-            mDFRAnswer1 = findViewById(R.id.dept_fr_answer1_btn);
-            mDFRAnswer2 = findViewById(R.id.dept_fr_answer2_btn);
-            mDFRAnswer3 = findViewById(R.id.dept_fr_answer3_btn);
-            mDFRAnswer4 = findViewById(R.id.dept_fr_answer4_btn);
+            else if(taganswer3 == mCurrentQuestion.getAnswerIndex()){
+                mFrAnswer3.setBackgroundColor(Color.parseColor("#008000"));
 
-            // Use the tag property to 'name' the buttons
-            mDFRAnswer1.setTag(0);
-            mDFRAnswer2.setTag(1);
-            mDFRAnswer3.setTag(2);
-            mDFRAnswer4.setTag(3);
+            }
 
-            mDFRAnswer1.setOnClickListener(this);
-            mDFRAnswer2.setOnClickListener(this);
-            mDFRAnswer3.setOnClickListener(this);
-            mDFRAnswer4.setOnClickListener(this);
-
-            mCurrentQuestion = mQuestionBank.getQuestion();
-            this.displayQuestion(mCurrentQuestion);
+            else if(taganswer4 == mCurrentQuestion.getAnswerIndex()){
+                mFrAnswer4.setBackgroundColor(Color.parseColor("#008000"));
+            }
 
         }
 
-        @Override
-        protected void onSaveInstanceState(@NonNull Bundle outState) {
+        mEnableTouchEvents = false;
 
-            outState.putInt(BUNDLE_STATE_SCORE, mScore);
-            outState.putInt(BUNDLE_STATE_QUESTION, mNumberOfQuestions);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mEnableTouchEvents = true;
+                mCountDownTimer.cancel();
+                timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+                startCountDown();
+                if (--mNumberOfQuestions == 0 && mQuestionCounter <= 10) {
+                    // End the game
+                    endGame();
+                } else {
 
-            super.onSaveInstanceState(outState);
-        }
+                    mCurrentQuestion = mQuestionBank.getQuestion();
+                    displayQuestion(mCurrentQuestion);
+                    mQuestionCounter++;
 
-        @Override
-        public void onClick(View v) {
-            int responseIndex = (int) v.getTag();
+                    mScoreDisplay.setText("Score : " + mScore);
+                    mNbrofQuestion.setText(mQuestionCounter + "/10");
 
-            if(responseIndex == mCurrentQuestion.getAnswerIndex()){
-                // Bon
-                Toast.makeText(this, "Correct !", Toast.LENGTH_SHORT).show();
-                mScore++;
-            } else {
-                // Mauvais
-                Toast.makeText(this, "Mauvaise réponse !", Toast.LENGTH_SHORT).show();
-            }
-            mEnableTouchEvents = false;
+                    mProgressBar.setProgress(mQuestionCounter);
 
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mEnableTouchEvents = true;
-                    if (--mNumberOfQuestions == 0) {
-                        // End the game
-                        endGame();
-                    } else {
-                        mCurrentQuestion = mQuestionBank.getQuestion();
-                        displayQuestion(mCurrentQuestion);
-                    }
+                    mFrAnswer1.setBackgroundColor(Color.parseColor("#39A1FF"));
+                    mFrAnswer2.setBackgroundColor(Color.parseColor("#39A1FF"));
+                    mFrAnswer3.setBackgroundColor(Color.parseColor("#39A1FF"));
+                    mFrAnswer4.setBackgroundColor(Color.parseColor("#39A1FF"));
                 }
-            }, 2000);
+            }
+        }, 2000);
+    }
+
+    private void startCountDown() {
+        mCountDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timeLeftInMillis = millisUntilFinished;
+                updateCountDown();
+            }
+
+            @Override
+            public void onFinish() {
+                timeLeftInMillis = 0;
+                updateCountDown();
+                mCountDownTimer.cancel();
+                if (--mNumberOfQuestions == 0) {
+                    // End the game
+                    endGame();
+                } else {
+                    mCurrentQuestion = mQuestionBank.getQuestion();
+                    displayQuestion(mCurrentQuestion);
+                    mQuestionCounter++;
+                    mScoreDisplay.setText("Score : " + mScore);
+                    mNbrofQuestion.setText(mQuestionCounter + "/10");
+                    timeLeftInMillis = COUNTDOWN_IN_MILLIS;
+                    startCountDown();
+                }
+            }
+        }.start();
+    }
+
+
+
+    private void  updateCountDown(){
+
+        int minutes = (int) (timeLeftInMillis / 1000) / 60;
+        int seconds = (int) (timeLeftInMillis / 1000) % 60;
+        String timeFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        mCountDown.setText(timeFormatted);
+
+        if(timeLeftInMillis < 6000){
+            mCountDown.setTextColor(Color.RED);
+        }
+        else{
+            mCountDown.setTextColor(CountDownColor);
         }
 
-        @Override
-        public boolean dispatchTouchEvent(MotionEvent ev) {
-            return mEnableTouchEvents && super.dispatchTouchEvent(ev);
-        }
+    }
 
-        private void endGame(){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Bien joué !")
-                    .setMessage("Votre score est de " + mScore +"/10")
-                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // End the activity
-                            Intent intent = new Intent();
-                            intent.putExtra(BUNDLE_EXTRA_SCORE, mScore);
-                            setResult(RESULT_OK, intent);
-                            finish();
-                        }
-                    })
-                    .create()
-                    .show();
-        }
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return mEnableTouchEvents && super.dispatchTouchEvent(ev);
+    }
+
+    private void endGame(){
+        mCountDownTimer.cancel();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Bien joué !")
+                .setMessage("Votre score est de " + mScore + "/10")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // End the activity
+                        Intent intent = new Intent();
+                        intent.putExtra(BUNDLE_EXTRA_SCORE, mScore);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                })
+                .create()
+                .show();
+    }
 
         private void displayQuestion(final Question question) {
-            mDFRQuestion.setText(question.getQuestion());
-            mDFRAnswer1.setText(question.getChoiceList().get(0));
-            mDFRAnswer2.setText(question.getChoiceList().get(1));
-            mDFRAnswer3.setText(question.getChoiceList().get(2));
-            mDFRAnswer4.setText(question.getChoiceList().get(3));
+            mFrQuestion.setText(question.getQuestion());
+            mFrAnswer1.setText(question.getChoiceList().get(0));
+            mFrAnswer2.setText(question.getChoiceList().get(1));
+            mFrAnswer3.setText(question.getChoiceList().get(2));
+            mFrAnswer4.setText(question.getChoiceList().get(3));
         }
 
         private QuestionBank generateQuestions() {
@@ -257,4 +395,12 @@ public class FrActivity extends AppCompatActivity implements View.OnClickListene
                    ));
 
         }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mCountDownTimer != null){
+            mCountDownTimer.cancel();
+        }
+    }
 }

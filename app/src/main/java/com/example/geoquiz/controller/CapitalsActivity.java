@@ -8,9 +8,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
     private TextView mScoreDisplay;
     private TextView mNbrofQuestion;
     private TextView mCountDown;
+    private ProgressBar mProgressBar;
 
     private QuestionBank mQuestionBank;
     private Question mCurrentQuestion;
@@ -87,6 +90,11 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
         mCapitalAnswer3 = findViewById(R.id.capital_answer3_btn);
         mCapitalAnswer4 = findViewById(R.id.capital_answer4_btn);
 
+        mScoreDisplay = findViewById(R.id.capitals_score);
+        mNbrofQuestion = findViewById(R.id.questions_count);
+        mCountDown = findViewById(R.id.capitals_question_timer);
+        mProgressBar =findViewById(R.id.capitals_progress_bar);
+
         // Use the tag property to 'name' the buttons
         mCapitalAnswer1.setTag(0);
         mCapitalAnswer2.setTag(1);
@@ -103,9 +111,6 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
 
         mQuestionTotal = 10;
         mQuestionCounter = 1;
-        mScoreDisplay = findViewById(R.id.capitals_score);
-        mNbrofQuestion = findViewById(R.id.questions_count);
-        mCountDown = findViewById(R.id.question_timer);
 
         CountDownColor = mCountDown.getTextColors();
         timeLeftInMillis = COUNTDOWN_IN_MILLIS;
@@ -129,16 +134,47 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         int responseIndex = (int) v.getTag();
 
+        int taganswer1 = (int) mCapitalAnswer1.getTag();
+        int taganswer2 = (int) mCapitalAnswer2.getTag();
+        int taganswer3 = (int) mCapitalAnswer3.getTag();
+        int taganswer4 = (int) mCapitalAnswer4.getTag();
+
         mCountDownTimer.cancel();
 
         if(responseIndex == mCurrentQuestion.getAnswerIndex()){
                 // Bon
-            Toast.makeText(this, "Correct !", Toast.LENGTH_SHORT).show();
-            mScore++;
+            Toast toast =  Toast.makeText(this, "Correct !", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM,0,350);
+            toast.show();
 
+            v.setBackgroundColor(Color.parseColor("#008000"));
+
+            mScore++;
         } else {
             // Mauvais
-            Toast.makeText(this, "Mauvaise réponse !", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(this, "Mauvaise réponse !",Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM,0,350);
+            toast.show();
+
+            v.setBackgroundColor(Color.parseColor("#830000"));
+
+            if(taganswer1 == mCurrentQuestion.getAnswerIndex()){
+                mCapitalAnswer1.setBackgroundColor(Color.parseColor("#008000"));
+            }
+
+            else if(taganswer2 == mCurrentQuestion.getAnswerIndex()){
+                mCapitalAnswer2.setBackgroundColor(Color.parseColor("#008000"));;
+            }
+
+            else if(taganswer3 == mCurrentQuestion.getAnswerIndex()){
+                mCapitalAnswer3.setBackgroundColor(Color.parseColor("#008000"));
+
+            }
+
+            else if(taganswer4 == mCurrentQuestion.getAnswerIndex()){
+                mCapitalAnswer4.setBackgroundColor(Color.parseColor("#008000"));
+            }
+
         }
 
         mEnableTouchEvents = false;
@@ -154,11 +190,20 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
                     // End the game
                     endGame();
                 } else {
+
                     mCurrentQuestion = mQuestionBank.getQuestion();
                     displayQuestion(mCurrentQuestion);
                     mQuestionCounter++;
+
                     mScoreDisplay.setText("Score : " + mScore);
-                    mNbrofQuestion.setText("Question : " +mQuestionCounter + "/10");
+                    mNbrofQuestion.setText(mQuestionCounter + "/10");
+
+                    mProgressBar.setProgress(mQuestionCounter);
+
+                    mCapitalAnswer1.setBackgroundColor(Color.parseColor("#39A1FF"));
+                    mCapitalAnswer2.setBackgroundColor(Color.parseColor("#39A1FF"));
+                    mCapitalAnswer3.setBackgroundColor(Color.parseColor("#39A1FF"));
+                    mCapitalAnswer4.setBackgroundColor(Color.parseColor("#39A1FF"));
                 }
             }
         }, 2000);
@@ -185,7 +230,7 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
                     displayQuestion(mCurrentQuestion);
                     mQuestionCounter++;
                     mScoreDisplay.setText("Score : " + mScore);
-                    mNbrofQuestion.setText("Question : " +mQuestionCounter + "/10");
+                    mNbrofQuestion.setText(mQuestionCounter + "/10");
                     timeLeftInMillis = COUNTDOWN_IN_MILLIS;
                     startCountDown();
                 }
@@ -242,6 +287,7 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
         mCapitalAnswer3.setText(question.getChoiceList().get(2));
         mCapitalAnswer4.setText(question.getChoiceList().get(3));
     }
+
     private QuestionBank generateQuestions() {
         Question question1 = new Question("Quelle est la capitale de la France ?",
                 Arrays.asList("Berlin", "Paris", "Rome", "Madrid"),
