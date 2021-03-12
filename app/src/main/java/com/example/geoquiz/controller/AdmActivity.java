@@ -445,7 +445,7 @@ public class AdmActivity extends AppCompatActivity implements View.OnClickListen
                 Arrays.asList("Minnesota", "Wisconsin", "Mississippi", "Missouri"),
                 0);
 
-        Question question40 = new Question("Dans quelle vile se trouve la quartier de Manhattan ?",
+        Question question40 = new Question("Dans quelle vile se trouve le quartier de Manhattan ?",
                 Arrays.asList("Los Angeles", "Miami ", "New York", "Chicago"),
                 2);
 
