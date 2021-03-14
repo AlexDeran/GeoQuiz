@@ -449,8 +449,89 @@ public class AdmActivity extends AppCompatActivity implements View.OnClickListen
                 Arrays.asList("Los Angeles", "Miami ", "New York", "Chicago"),
                 2);
 
+        Question question41 = new Question("Quelle est la capitale de la France ?",
+                Arrays.asList("Berlin", "Paris", "Rome", "Madrid"),
+                1);
 
-        return new QuestionBank(Arrays.asList(question1,
+        Question question42 = new Question("Quelle est la ville la plus peuplée de France après Paris ?",
+                Arrays.asList("Lyon", "Toulouse","Marseille", "Lille"),
+                2);
+
+        Question question43 = new Question("Quel est le plus long fleuve Français ?",
+                Arrays.asList("La Loire", "La Seine","La Rhône", "La Garonne"),
+                0);
+
+        Question question44 = new Question("Quel est le chef-lieu de la Corrèze?",
+                Arrays.asList("Poitiers", "Limoges","Guéret", "Tulle"),
+                3);
+
+        Question question45 = new Question("Quel fleuve traverse Bordeaux ?",
+                Arrays.asList("Gironde", "Dordogne","Tarn", "Garonne"),
+                3);
+
+        Question question46 = new Question("Quel département porte le numéro 45 ?",
+                Arrays.asList("Loir-et-Cher", "Loiret","Lot", "Loire-atlantique"),
+                1);
+
+        Question question47 = new Question("Quel est le chef-lieu de l'Orne ?",
+                Arrays.asList("Caen", "Alençon","Évreux", "Laval"),
+                1);
+
+        Question question48 = new Question("Quel est le numéro du département de l'Eure ?",
+                Arrays.asList("78", "27","29", "54"),
+                1);
+
+        Question question49 = new Question("Quel est le numéro du département de la Guadeloupe ?",
+                Arrays.asList("978", "972","971", "975"),
+                2);
+
+        Question question50 = new Question("Quel est le nom du département 72  ?",
+                Arrays.asList("Corrèze", "Seine-Maritime","Sarthe", "Savoie"),
+                2);
+
+        Question question51 = new Question("Quel est le numéro du département de la Moselle ?",
+                Arrays.asList("57", "88","54", "52"),
+                0);
+
+        Question question52 = new Question("Combien y a t-il de départements en France ?",
+                Arrays.asList("97", "100","101", "103"),
+                2);
+
+        Question question53 = new Question("Quel est le nom du département 60 ?",
+                Arrays.asList("Oise", "Moselle","Orne", "Nord"),
+                0);
+
+        Question question54 = new Question("Quel est le nom du département 38 ?",
+                Arrays.asList("Loire", "Isére","Indre", "Indre-et-Loire"),
+                1);
+
+        Question question55 = new Question("Quel est le nom du département 24 ?",
+                Arrays.asList("Creuse", "Dordogne","Doubs", "Drôme"),
+                1);
+
+        Question question56 = new Question("Quel est le chef-lieu du Tarn ?",
+                Arrays.asList("Albi", "Montauban","Toulouse", "Agen"),
+                0);
+
+        Question question57 = new Question("Quel est le chef-lieu de la Marne ?",
+                Arrays.asList("Reims", "Châlons-en-Champagne","Troyes", "Bar-le-Duc"),
+                1);
+
+        Question question58 = new Question("Quel est le nom du département 10 ?",
+                Arrays.asList("Ariège", "Aude","Aube", "Aveyron"),
+                2);
+
+        Question question59 = new Question("Quel est le chef-lieu de la Charente ?",
+                Arrays.asList("La Rochelle", "Cognac", "Royan", "Angoulême"),
+                3);
+
+        Question question60 = new Question("Quel fleuve traverse Tours ?",
+                Arrays.asList("Touraine", "Loiret","Loire", "Maine"),
+                2);
+
+
+        return new QuestionBank(Arrays.asList(
+                question1,
                 question2,
                 question3,
                 question4,
@@ -489,7 +570,28 @@ public class AdmActivity extends AppCompatActivity implements View.OnClickListen
                 question37,
                 question38,
                 question39,
-                question40));
+                question40,
+                question41,
+                question42,
+                question43,
+                question44,
+                question45,
+                question46,
+                question47,
+                question48,
+                question49,
+                question50,
+                question51,
+                question52,
+                question53,
+                question54,
+                question55,
+                question56,
+                question57,
+                question58,
+                question59,
+                question60
+                ));
 
     }
 

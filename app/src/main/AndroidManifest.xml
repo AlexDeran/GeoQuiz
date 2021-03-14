@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeoQuiz">
         <activity android:name=".controller.FlagsActivity"></activity>
-        <activity android:name=".controller.FrActivity" />
+        <activity android:name=".controller.TcpActivity" />
         <activity
             android:name=".GetNameActivity"
             android:screenOrientation="portrait"
