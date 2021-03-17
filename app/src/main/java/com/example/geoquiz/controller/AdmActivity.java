@@ -144,7 +144,7 @@ public class AdmActivity extends AppCompatActivity implements View.OnClickListen
         if(responseIndex == mCurrentQuestion.getAnswerIndex()){
             // Bon
             Toast toast =  Toast.makeText(this, "Correct !", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.BOTTOM,0,350);
+            toast.setGravity(Gravity.BOTTOM,0,100);
             toast.show();
 
             v.setBackgroundColor(Color.parseColor("#008000"));
@@ -153,7 +153,7 @@ public class AdmActivity extends AppCompatActivity implements View.OnClickListen
         } else {
             // Mauvais
             Toast toast = Toast.makeText(this, "Mauvaise réponse !",Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.BOTTOM,0,350);
+            toast.setGravity(Gravity.BOTTOM,0,100);
             toast.show();
 
             v.setBackgroundColor(Color.parseColor("#830000"));

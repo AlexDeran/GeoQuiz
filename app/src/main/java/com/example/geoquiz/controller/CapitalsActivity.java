@@ -144,7 +144,7 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
         if(responseIndex == mCurrentQuestion.getAnswerIndex()){
                 // Bon
             Toast toast =  Toast.makeText(this, "Correct !", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.BOTTOM,0,350);
+            toast.setGravity(Gravity.BOTTOM,0,100);
             toast.show();
 
             v.setBackgroundColor(Color.parseColor("#008000"));
@@ -153,7 +153,7 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
         } else {
             // Mauvais
             Toast toast = Toast.makeText(this, "Mauvaise réponse !",Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.BOTTOM,0,350);
+            toast.setGravity(Gravity.BOTTOM,0,100);
             toast.show();
 
             v.setBackgroundColor(Color.parseColor("#830000"));
@@ -369,6 +369,14 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
                 Arrays.asList("Manchester", "Liverpool", "Birmingham", "Londres"),
                 3);
 
+        Question question21 = new Question("Quelle est la capitale de Madagascar ?",
+                Arrays.asList("Fianarantsoa", "Toliara", "Antananarivo", "Toamasina"),
+                2);
+
+        Question question22 = new Question("Quelle est la capitale de l'Islande ?",
+                Arrays.asList("Oslo", "Stockholm", "Copenhague", "Reykjavik"),
+                3);
+
         return new QuestionBank(Arrays.asList(question1,
                 question2,
                 question3,
@@ -388,7 +396,10 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
                 question17,
                 question18,
                 question19,
-                question20));
+                question20,
+                question21,
+                question22
+        ));
     }
 
 

@@ -251,6 +251,7 @@ public class FlagsActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void endGame(){
+        mCountDownTimer.cancel();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Bien joué !")
                 .setMessage("Votre score est de " + mScore + "/10")
@@ -542,6 +543,10 @@ public class FlagsActivity extends AppCompatActivity implements View.OnClickList
                 R.drawable.ic_flag_of_venezuela, Arrays.asList("Colombie", "Vénézuela","Équateur", "Suriname"),
                 1);
 
+        ImgQuestion imgQuestion67 = new ImgQuestion("À quel pays appartient ce drapeau ?",
+                R.drawable.ic_flag_of_madagascar, Arrays.asList("Comores", "Maldives","Madagascar", "Philippines"),
+                2);
+
 
         return new ImgBank(Arrays.asList(
                 imgQuestion1,
@@ -609,7 +614,8 @@ public class FlagsActivity extends AppCompatActivity implements View.OnClickList
                 imgQuestion63,
                 imgQuestion64,
                 imgQuestion65,
-                imgQuestion66
+                imgQuestion66,
+                imgQuestion67
         ));
     }
 

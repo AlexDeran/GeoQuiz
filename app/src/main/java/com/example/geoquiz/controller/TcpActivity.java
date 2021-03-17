@@ -251,6 +251,7 @@ public class TcpActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void endGame(){
+        mCountDownTimer.cancel();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Bien joué !")
                 .setMessage("Votre score est de " + mScore + "/10")
@@ -303,7 +304,7 @@ public class TcpActivity extends AppCompatActivity implements View.OnClickListen
                 1);
 
         ImgQuestion imgQuestion7 = new ImgQuestion("Quel est ce pays ?",
-                R.drawable.shape_of_russia, Arrays.asList("Chine", "Ukraine","Russie", "Chine"),
+                R.drawable.shape_of_russia, Arrays.asList("Chine", "Ukraine","Russie", "Kazakhstan"),
                 2);
 
         ImgQuestion imgQuestion8 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
@@ -334,6 +335,95 @@ public class TcpActivity extends AppCompatActivity implements View.OnClickListen
                 R.drawable.rio_corcovado, Arrays.asList("Argentine", "Brésil","Colombie", "Chili"),
                 1);
 
+        ImgQuestion imgQuestion15 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_usa, Arrays.asList("Canada", "Mexique","États-Unis", "Russie"),
+                2);
+
+        ImgQuestion imgQuestion16 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.liberty_statue, Arrays.asList("Canada", "Mexique","Australie", "États-Unis"),
+                3);
+
+        ImgQuestion imgQuestion17 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_japan, Arrays.asList("Japon", "Chine","Corée du Sud", "Malaisie"),
+                0);
+
+        ImgQuestion imgQuestion18 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.mount_fuji, Arrays.asList("Chine", "Japon","Corée du Sud", "Bangladesh"),
+                1);
+
+        ImgQuestion imgQuestion19 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_italy, Arrays.asList("France", "Espagne","Italie", "Grèce"),
+                2);
+
+        ImgQuestion imgQuestion20 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.colosseum, Arrays.asList("France", "Espagne","Grèce", "Italie"),
+                3);
+
+        ImgQuestion imgQuestion21 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_china, Arrays.asList("Chine", "Russie","Japon", "Mongolie"),
+                0);
+
+        ImgQuestion imgQuestion22 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.the_great_wall, Arrays.asList("Japon", "Chine","Russie", "Mongolie"),
+                1);
+
+        ImgQuestion imgQuestion23 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_egypt, Arrays.asList("Algérie", "Libye","Égypte", "Kenya"),
+                2);
+
+        ImgQuestion imgQuestion24 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.pyramids, Arrays.asList("Libye", "Kenya","Tchad", "Égypte"),
+                3);
+
+        ImgQuestion imgQuestion25 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_gb, Arrays.asList("Grande-Bretagne", "Phillipines","Japon", "Indonésie"),
+                0);
+
+        ImgQuestion imgQuestion26 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.big_ben, Arrays.asList("Canada", "Grande-Bretagne","Australie", "États-Unis"),
+                1);
+
+        ImgQuestion imgQuestion27 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_greece, Arrays.asList("Japon", "Italie","Grèce", "Croatie"),
+                2);
+
+        ImgQuestion imgQuestion28 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.acropolis, Arrays.asList("Italie", "Turquie","Croatie", "Grèce"),
+                3);
+
+        ImgQuestion imgQuestion29 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_iceland, Arrays.asList("Islande", "Irlande","Danemark", "Finlande"),
+                0);
+
+        ImgQuestion imgQuestion30 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.godafoss, Arrays.asList("Norvège", "Islande","Suède", "Finlande"),
+                1);
+
+        ImgQuestion imgQuestion31 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_india, Arrays.asList("Chine", "Iran","Inde", "Mongolie"),
+                2);
+
+        ImgQuestion imgQuestion32 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.taj_mahal, Arrays.asList("Sri Lanka", "Népal","Mongolie", "Inde"),
+                3);
+
+        ImgQuestion imgQuestion33 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_peru, Arrays.asList("Pérou", "Équateur","Argentine", "Bolivie"),
+                0);
+
+        ImgQuestion imgQuestion34 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.machu_pichu, Arrays.asList("Bolivie", "Pérou","Équateur", "Costa-Rica"),
+                1);
+
+        ImgQuestion imgQuestion35 = new ImgQuestion("Quel est ce pays ?",
+                R.drawable.shape_of_denmark, Arrays.asList("Estonie", "Lituanie","Danemark", "Pologne"),
+                2);
+
+        ImgQuestion imgQuestion36 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
+                R.drawable.nyhavn, Arrays.asList("Suède", "Islande","Danemark", "Norvège"),
+                3);
+
+
         return new ImgBank(Arrays.asList(
                 imgQuestion1,
                 imgQuestion2,
@@ -348,7 +438,29 @@ public class TcpActivity extends AppCompatActivity implements View.OnClickListen
                 imgQuestion11,
                 imgQuestion12,
                 imgQuestion13,
-                imgQuestion14
+                imgQuestion14,
+                imgQuestion15,
+                imgQuestion16,
+                imgQuestion17,
+                imgQuestion18,
+                imgQuestion19,
+                imgQuestion20,
+                imgQuestion21,
+                imgQuestion22,
+                imgQuestion23,
+                imgQuestion24,
+                imgQuestion25,
+                imgQuestion26,
+                imgQuestion27,
+                imgQuestion28,
+                imgQuestion29,
+                imgQuestion30,
+                imgQuestion31,
+                imgQuestion32,
+                imgQuestion33,
+                imgQuestion34,
+                imgQuestion35,
+                imgQuestion36
         ));
     }
 
