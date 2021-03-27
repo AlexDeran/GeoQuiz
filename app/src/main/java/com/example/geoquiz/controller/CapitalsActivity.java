@@ -174,7 +174,6 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
             else if(taganswer4 == mCurrentQuestion.getAnswerIndex()){
                 mCapitalAnswer4.setBackgroundColor(Color.parseColor("#008000"));
             }
-
         }
 
         mEnableTouchEvents = false;

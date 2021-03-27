@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/perfume"
+    android:background="@drawable/water"
     android:padding="16dp"
     tools:context=".controller.CapitalsActivity">
 
@@ -24,7 +24,7 @@
         android:layout_above="@id/activity_get_name_input"
         android:layout_centerInParent="true"
         android:layout_margin="20dp"
-        android:textColor="@color/white"
+        android:textColor="@color/design_default_color_on_primary"
         android:textSize="20dp"
 />
 
