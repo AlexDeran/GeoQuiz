@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         mTCP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent TCPActivityIntent = new Intent(MainActivity.this, TcpActivity.class);
+                Intent TCPActivityIntent = new Intent(MainActivity.this, TlpActivity.class);
                 startActivityForResult(TCPActivityIntent,TCP_ACTIVITY_REQUEST_CODE);
             }
         });
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (TCP_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode){
 
-            int scoretcp = data.getIntExtra(TcpActivity.BUNDLE_EXTRA_SCORE,0);
+            int scoretcp = data.getIntExtra(TlpActivity.BUNDLE_EXTRA_SCORE,0);
             mPreferences.edit().putInt(PREF_KEY_SCORETCP,scoretcp).apply();
         }
 

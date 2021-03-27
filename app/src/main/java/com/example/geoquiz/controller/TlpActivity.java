@@ -27,7 +27,7 @@ import com.example.geoquiz.model.ImgQuestion;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class TcpActivity extends AppCompatActivity implements View.OnClickListener {
+public class TlpActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final long COUNTDOWN_IN_MILLIS = 11000;
 
@@ -64,7 +64,7 @@ public class TcpActivity extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tcp);
+        setContentView(R.layout.activity_tlp);
 
         mImgBank = this.generateQuestions();
         mScore = 0;

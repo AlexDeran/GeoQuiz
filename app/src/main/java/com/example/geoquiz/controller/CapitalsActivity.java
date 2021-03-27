@@ -376,6 +376,10 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
                 Arrays.asList("Oslo", "Stockholm", "Copenhague", "Reykjavik"),
                 3);
 
+        Question question23 = new Question("Quelle est la capitale du Laos ?",
+                Arrays.asList("Vientiane", "Phnom Penh","Hanoï","Naypyidaw"),
+                0);
+
         return new QuestionBank(Arrays.asList(question1,
                 question2,
                 question3,
@@ -397,7 +401,8 @@ public class CapitalsActivity extends AppCompatActivity implements View.OnClickL
                 question19,
                 question20,
                 question21,
-                question22
+                question22,
+                question23
         ));
     }
 
