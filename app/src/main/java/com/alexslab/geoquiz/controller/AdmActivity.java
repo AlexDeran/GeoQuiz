@@ -1,4 +1,4 @@
-package com.example.geoquiz.controller;
+package com.alexslab.geoquiz.controller;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,9 +21,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.geoquiz.R;
-import com.example.geoquiz.model.Question;
-import com.example.geoquiz.model.QuestionBank;
+import com.alexslab.geoquiz.R;
+import com.alexslab.geoquiz.model.Question;
+import com.alexslab.geoquiz.model.QuestionBank;
 
 import java.util.Arrays;
 import java.util.Locale;

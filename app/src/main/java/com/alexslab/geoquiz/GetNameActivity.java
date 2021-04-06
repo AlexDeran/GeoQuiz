@@ -1,4 +1,4 @@
-package com.example.geoquiz;
+package com.alexslab.geoquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,14 +10,10 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.geoquiz.controller.MainActivity;
-import com.example.geoquiz.model.User;
-
-import static com.example.geoquiz.controller.MainActivity.GAME_ACTIVITY_REQUEST_CODE;
-import static com.example.geoquiz.controller.MainActivity.PREF_KEY_SCORE;
+import com.alexslab.geoquiz.controller.MainActivity;
+import com.alexslab.geoquiz.model.User;
 
 public class GetNameActivity extends AppCompatActivity {
     private TextView mGreetingText;

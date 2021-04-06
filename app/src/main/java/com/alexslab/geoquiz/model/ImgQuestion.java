@@ -1,25 +1,27 @@
-package com.example.geoquiz.model;/* Created by Alexandre Labreveux */
+package com.alexslab.geoquiz.model;/* Created by Alexandre Labreveux */
 
 import java.util.List;
 
-public class Question {
-
-    private String mQuestion;
-    private List<String> mChoiceList;
+public class ImgQuestion {
+    private String mImgQuestion;
     private int mAnswerIndex;
+    private int mImage;
+    private List<String> mChoiceList;
 
-    public Question(String question, List<String> choiceList, int answerIndex) {
-        this.setQuestion(question);
+    public ImgQuestion(String imgQuestion, int image, List<String> choiceList, int answerIndex) {
+        mAnswerIndex = answerIndex;
+        this.setImgQuestion(imgQuestion);
+        this.setImage(image);
         this.setChoiceList(choiceList);
         this.setAnswerIndex(answerIndex);
     }
 
-    public String getQuestion() {
-        return mQuestion;
+    public String getImgQuestion() {
+        return mImgQuestion;
     }
 
-    public void setQuestion(String question) {
-        mQuestion = question;
+    public void setImgQuestion(String question) {
+        mImgQuestion = question;
     }
 
     public List<String> getChoiceList() {
@@ -34,6 +36,14 @@ public class Question {
         mChoiceList = choiceList;
     }
 
+    public int getImage() {
+        return mImage;
+    }
+
+    public void setImage(int image) {
+        mImage = image;
+    }
+
     public int getAnswerIndex() {
         return mAnswerIndex;
     }
@@ -43,15 +53,17 @@ public class Question {
             throw new IllegalArgumentException("Answer index is out of bound");
         }
 
-        mAnswerIndex = answerIndex;
     }
 
     @Override
     public String toString() {
-        return "Question{" +
-                "mQuestion='" + mQuestion + '\'' +
+        return "ImgQuestion{" +
+                "mImgQuestion='" + mImgQuestion + '\'' +
+                ", mImage=" + mImage +
                 ", mChoiceList=" + mChoiceList +
                 ", mAnswerIndex=" + mAnswerIndex +
                 '}';
     }
+
 }
+

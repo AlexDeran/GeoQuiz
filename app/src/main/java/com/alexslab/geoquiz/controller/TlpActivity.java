@@ -1,4 +1,4 @@
-package com.example.geoquiz.controller;
+package com.alexslab.geoquiz.controller;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -20,9 +20,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.geoquiz.R;
-import com.example.geoquiz.model.ImgBank;
-import com.example.geoquiz.model.ImgQuestion;
+import com.alexslab.geoquiz.R;
+import com.alexslab.geoquiz.model.ImgBank;
+import com.alexslab.geoquiz.model.ImgQuestion;
 
 import java.util.Arrays;
 import java.util.Locale;
@@ -420,7 +420,7 @@ public class TlpActivity extends AppCompatActivity implements View.OnClickListen
                 2);
 
         ImgQuestion imgQuestion36 = new ImgQuestion("Dans quel pays se situe cet endroit ?",
-                R.drawable.nyhavn, Arrays.asList("Suède", "Islande","Danemark", "Norvège"),
+                R.drawable.nyhavn, Arrays.asList("Suède", "Islande","Norvège", "Danemark"),
                 3);
 
 

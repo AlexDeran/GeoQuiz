@@ -1,4 +1,4 @@
-package com.example.geoquiz.model;/* Created by Alexandre Labreveux */
+package com.alexslab.geoquiz.model;/* Created by Alexandre Labreveux */
 
 import java.util.Collections;
 import java.util.List;

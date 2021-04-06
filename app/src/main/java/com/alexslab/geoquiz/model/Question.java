@@ -1,27 +1,25 @@
-package com.example.geoquiz.model;/* Created by Alexandre Labreveux */
+package com.alexslab.geoquiz.model;/* Created by Alexandre Labreveux */
 
 import java.util.List;
 
-public class ImgQuestion {
-    private String mImgQuestion;
-    private int mAnswerIndex;
-    private int mImage;
-    private List<String> mChoiceList;
+public class Question {
 
-    public ImgQuestion(String imgQuestion, int image, List<String> choiceList, int answerIndex) {
-        mAnswerIndex = answerIndex;
-        this.setImgQuestion(imgQuestion);
-        this.setImage(image);
+    private String mQuestion;
+    private List<String> mChoiceList;
+    private int mAnswerIndex;
+
+    public Question(String question, List<String> choiceList, int answerIndex) {
+        this.setQuestion(question);
         this.setChoiceList(choiceList);
         this.setAnswerIndex(answerIndex);
     }
 
-    public String getImgQuestion() {
-        return mImgQuestion;
+    public String getQuestion() {
+        return mQuestion;
     }
 
-    public void setImgQuestion(String question) {
-        mImgQuestion = question;
+    public void setQuestion(String question) {
+        mQuestion = question;
     }
 
     public List<String> getChoiceList() {
@@ -36,14 +34,6 @@ public class ImgQuestion {
         mChoiceList = choiceList;
     }
 
-    public int getImage() {
-        return mImage;
-    }
-
-    public void setImage(int image) {
-        mImage = image;
-    }
-
     public int getAnswerIndex() {
         return mAnswerIndex;
     }
@@ -53,17 +43,15 @@ public class ImgQuestion {
             throw new IllegalArgumentException("Answer index is out of bound");
         }
 
+        mAnswerIndex = answerIndex;
     }
 
     @Override
     public String toString() {
-        return "ImgQuestion{" +
-                "mImgQuestion='" + mImgQuestion + '\'' +
-                ", mImage=" + mImage +
+        return "Question{" +
+                "mQuestion='" + mQuestion + '\'' +
                 ", mChoiceList=" + mChoiceList +
                 ", mAnswerIndex=" + mAnswerIndex +
                 '}';
     }
-
 }
-

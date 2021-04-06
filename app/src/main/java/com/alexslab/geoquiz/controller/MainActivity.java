@@ -1,4 +1,4 @@
-package com.example.geoquiz.controller;
+package com.alexslab.geoquiz.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.geoquiz.R;
+import com.alexslab.geoquiz.R;
 
 public class MainActivity extends AppCompatActivity {
     private Button mCapitales;
